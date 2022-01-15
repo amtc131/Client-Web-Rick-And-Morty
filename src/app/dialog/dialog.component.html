@@ -1,0 +1,48 @@
+<h1 mat-dialog-title>{{data.name}}</h1>
+<div mat-dialog-content>
+  <p>Character created at: {{data.name | date}}</p>
+  <div>
+    <p><strong>Episode List:</strong></p>
+    <mat-accordion class="example-headers-align">
+      <mat-expansion-panel *ngFor="let item of episodeList; let i = index "
+        (opened)=" true; getCharacterInEpisodes(item.characters)"
+        (closed)=" false; characterList===null">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <span><strong>{{item.name}}</strong></span>
+          </mat-panel-title>
+          <mat-panel-description>
+            <span><strong>Season:</strong> {{item.episode}}</span>
+            <span><strong>Air date:</strong> {{item.air_date}} </span>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <mat-divider></mat-divider>
+        <div>
+          <p><strong>Characters:</strong> {{characterList?.length}}</p>
+          <mat-progress-bar *ngIf="!characterList" mode="indeterminate"></mat-progress-bar>
+          <div *ngIf="characterList">
+            <mat-grid-list cols="4" rowHeight="100px">
+              <mat-grid-tile [colspan]="2" *ngFor="let item of characterList">
+                <mat-list>
+                  <mat-list-item (click)="goToSearch(item.name)">
+                    <img matListAvatar src="{{item.image}}" alt="{{item.name}}">
+                    <h3 matLine> {{item.id}} {{item.name}} </h3>
+                    <p matLine>
+                      <span> </span>
+                      <span> {{item.species}} | {{item.status}}</span>
+                    </p>
+                  </mat-list-item>
+                </mat-list>
+              </mat-grid-tile>
+            </mat-grid-list>
+
+          </div>
+
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+</div>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Close</button>
+</mat-dialog-actions>

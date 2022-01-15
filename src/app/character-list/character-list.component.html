@@ -1,0 +1,23 @@
+<div class="page-container">
+  <div class="flex-container">
+    <mat-card class="flex-item card mat-elevation-z2" *ngFor="let char of characters$ | async">
+      <mat-card-header>
+        <mat-card-title style="color: aliceblue;">{{char.name}}</mat-card-title>
+        <mat-card-subtitle>
+          <span class="status__icon" [style.background-color]="setStatusColor(char.status)"></span>
+          {{char.species}} | <span  class="status">{{char.status}}</span>
+        </mat-card-subtitle>
+      </mat-card-header>
+      <img mat-card-image src="{{char.image}}" alt="{{char.name}}">
+      <mat-card-content>
+        <p style="color: aliceblue;"><strong style=" color: #6C7C88"> Origin:</strong> {{char.origin.name}}</p>
+        <p style="color: aliceblue;"><strong style="color: #6C7C88">Last known location:</strong> {{char.location.name}} </p>
+      </mat-card-content>
+      <mat-card-actions>
+        <a class="btnE" (click)="openDialog(char)" mat-stroked-button color="accent" >Episodes</a>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+  <mat-paginator [length]="resultsLength" [pageSize]="20" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons>
+  </mat-paginator>
+</div>
